@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} userhomepage {% endblock %}
+
+{% block content%}
+
+<link rel="stylesheet" href="{% static 'userpage/css/home_page.css'%}">
+
+{% for post in posts %}
+<div class="container my-3">
+    <div class="card-group mx-5" style="width:35%">
+      <div class="card">
+        <img class="card-img-top" src="{{post.get_image}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{post.caption}} {{post.id}}</h5>
+<!--          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+            <a style="color:black;" href="{% url 'userprofile' post.user %}"
+                                class="card-text">User: <b>{{post.user}}</b></a>
+        <hr>
+            {% if post.liked%}
+            <a href="{% url 'removelike' post.id%}" class="btn btn-danger mr-3">RemoveLike <span class="badge badge-primary">{{post.like.likes}}</span></a>
+            {% else %}
+            <a href="{% url 'likes' post.id%}" class="btn btn-primary mr-3">Like</a>
+            {% endif %}
+            <button class="mr-3">Comment</button>
+            {% if request.user == post.user%}
+            <a class="btn btn-danger delete" id="{{post.id}}" href="{% url 'deletepost' post.id%}">Delete</a>
+            {% endif %}
+        </div>
+      </div>
+
+    </div>
+</div>
+{% endfor %}
+
+<script>
+
+    $(".delete").on('click',(function(e){
+    var id = this.id;
+    var href = this.href;
+    console.log(href, log)
+    e.preventDefault();
+
+    $.ajax({
+        url: href,
+        data: {},
+    });
+
+    }));
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<h4 class="my-3" style="color:#00a3cc;">{{profile_detail.user|title }} UserProfile</h4>
+    <hr style="border-top:2px solid #000000">
+
+    <div class="media">
+        <img src="{{profile_detail.userimage.url}}" class="rounded-circle" alt="Cinque Terre" width="145" height="135">
+        <div class="media-body info mx-5">
+            <h4 class="mt-0">{{profile_detail.user}}
+
+                {% if followed %}
+                <a href="{%url 'unfollow' profile_detail.user%}" type="button" class="btn btn-outline-danger">UnFollow</a>
+            {% else %}
+              <a href="{%url 'followuser' profile_detail.user%}" type="button" class="btn btn-outline-info">Follow</a>
+            {% endif %}
+
+            </h4>
+            {% for f in follower %}
+            <p>Follower : <b style="color:#e6004c;">{{f.followcount}}</b>  Following: {{profile_detail.following}}</p>
+            {% endfor %}
+            <p><b>{{profile_detail.bio}}</b></p>
+        </div>
+    </div>
+    <hr style="border-top:2px solid #000000">
+<!--    Image's here-->
+    {% for p in post %}
+        <img src="{{p.image.url}}" style="height:230px; width:250px;" class="img-thumbnail mx-2 my-3">
+    {% endfor %}
+</div>
+{% endblock %}

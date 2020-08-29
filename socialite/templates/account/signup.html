@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %} Signup {% endblock %}
+
+{% block content %}
+<div class="container my-2 offset-lg-3">
+ <form method="POST">
+        {% csrf_token %}
+     <div class="form-group col-6">
+         <label class="label">Enter Email</label>
+         <div class="control">
+             {% render_field form.email class="input form-control" placeholder="your@email"%}
+         </div>
+     </div>
+
+     <div class="form-group col-6">
+         <label class="label">Enter Username</label>
+         <div class="control">
+             {% render_field form.username class="input form-control"%}
+         </div>
+     </div>
+
+     <div class="form-group col-6">
+         <label class="label">Enter first_name</label>
+         <div class="control">
+             {% render_field form.first_name class="input form-control"%}
+         </div>
+     </div>
+
+      <div class="form-group col-6">
+         <label class="label">Enter password</label>
+         <div class="control">
+             {% render_field form.password class="input form-control"%}
+         </div>
+     </div>
+
+     <div class="form-group col-6">
+         <label class="label">Enter confirm_password</label>
+         <div class="control">
+             {% render_field form.confirm_password class="input form-control"%}
+         </div>
+     </div>
+
+        <button type="submit" class="button btn-success col-2 offset-lg-2">Register</button>
+    </form>
+</div>
+{% endblock %}
